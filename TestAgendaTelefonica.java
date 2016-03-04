@@ -1,21 +1,47 @@
-
 /**
- * Write a description of class TestAgendaTelefonica here.
+ * Write a description of class TestArrayListInt here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
 public class TestAgendaTelefonica
 {
-    public void test()
-    {
+    private int numeroTestsFallados;
+
+    /**
+     * Constructor for objects of class TestArrayListInt
+     */
+    public TestAgendaTelefonica()
+    {   
+        numeroTestsFallados = 0;
         AgendaTelefonica agenda = new AgendaTelefonica();
-        //Se hacen correctamente consultas a una agenda vacía.
-        agenda.lookupNumber("nombre");
-        //Se introducen correctamente contactos.
-        agenda.enterNumber("Pepe","987654321");
-        //Se consulta correctamente el teléfono de un contacto existente.
-        agenda.lookupNumber("Pepe");
-        //Se consulta correctamente el teléfono de un contacto inexistente.
+        
+        numeroTestsFallados += testea(null, agenda.lookupNumber("Antonio"),"Método lookupNumber");
+        agenda.enterNumber("Antonio","987654321");
+        numeroTestsFallados += testea("987654321",agenda.lookupNumber("Antonio"),"Método lookupNumber");
+        numeroTestsFallados += testea(null,agenda.lookupNumber("Pepe"),"Método lookupNumber");
+               
+        if (numeroTestsFallados == 0) {
+            System.out.println("Todos los test se han pasado correctamente!!");
+        }
+        else {
+            System.out.println("Han fallado " + numeroTestsFallados + " tests!!!");
+        }
+    }
+
+    public int testea(Object valorEsperado, Object valorObtenido, 
+                          String nombreFuncion)
+    {
+        int valorDevuelto = 0;
+        if (valorEsperado == valorObtenido) {
+            System.out.println("OK: " + nombreFuncion);
+        }
+        else {
+            System.out.println("ERROR!!!!! " + nombreFuncion);
+            System.out.println("Valor obtenido: " + valorObtenido + 
+                               " / Valor esperado: " + valorEsperado);
+            valorDevuelto = 1;
+        }
+        return valorDevuelto;
     }
 }
